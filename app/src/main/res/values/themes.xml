@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.AloDrawerMenu" parent="Theme.Material3.DayNight">
+    <style name="Base.Theme.MyMusicsApp" parent="Theme.Material3.DayNight">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.AloDrawerMenu" parent="Base.Theme.AloDrawerMenu" />
+    <style name="Theme.MyMusicsApp" parent="Base.Theme.MyMusicsApp" />
 </resources>
