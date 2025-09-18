@@ -105,4 +105,10 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(frameLayout.getId(),NovaMusicaFragment.newInstance(musica));
         fragmentTransaction.commit();
     }
+
+    public void listarMusicas() {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(frameLayout.getId(), MusicasFragment.newInstance("param1", "param2"));
+        fragmentTransaction.commit();
+    }
 }

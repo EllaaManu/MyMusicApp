@@ -1,4 +1,5 @@
 package com.example.alodrawermenu;
+import android.content.Context;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.example.alodrawermenu.MainActivity;
 import com.example.alodrawermenu.R;
@@ -46,6 +48,8 @@ public class NovaMusicaFragment extends Fragment {
     private TextInputLayout tilDuracao;
 
     private Button btnSalvar;
+
+    private MainActivity mainActivity;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -83,6 +87,12 @@ public class NovaMusicaFragment extends Fragment {
         args.putInt("musica_id", musica.getId());
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mainActivity = (MainActivity) context;
     }
 
     @Override
@@ -233,6 +243,7 @@ public class NovaMusicaFragment extends Fragment {
                     tilDuracao.getEditText().setText("");
                     spinnerGenero.setText("", false);
 
+                    mainActivity.listarMusicas();
                 } else {
                     Toast.makeText(getContext(), "Erro ao alterar música", Toast.LENGTH_SHORT).show();
                 }
