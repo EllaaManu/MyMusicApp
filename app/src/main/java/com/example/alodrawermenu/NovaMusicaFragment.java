@@ -226,6 +226,12 @@ public class NovaMusicaFragment extends Fragment {
 
                 if (resultado) {
                     Toast.makeText(getContext(), "Música alterada com sucesso!", Toast.LENGTH_SHORT).show();
+                    // limpar os campos
+                    tilTitulo.getEditText().setText("");
+                    tilInterprete.getEditText().setText("");
+                    tilAno.getEditText().setText("");
+                    tilDuracao.getEditText().setText("");
+                    spinnerGenero.setText("", false);
 
                 } else {
                     Toast.makeText(getContext(), "Erro ao alterar música", Toast.LENGTH_SHORT).show();
@@ -263,7 +269,13 @@ public class NovaMusicaFragment extends Fragment {
 
                 if (resultado) {
                     Toast.makeText(getContext(), "Música cadastrada com sucesso!", Toast.LENGTH_SHORT).show();
-                    // Limpar os campos ou navegar para outra tela
+                    // limpar campos
+                    tilTitulo.getEditText().setText("");
+                    tilInterprete.getEditText().setText("");
+                    tilAno.getEditText().setText("");
+                    tilDuracao.getEditText().setText("");
+                    spinnerGenero.setText("", false);
+
                 } else {
                     Toast.makeText(getContext(), "Erro ao cadastrar música", Toast.LENGTH_SHORT).show();
                 }
