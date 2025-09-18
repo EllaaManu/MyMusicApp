@@ -2,16 +2,29 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/it_nmusica"
-        android:title="Nova Música" />
-    <item
-        android:id="@+id/it_lmusicas"
-        android:title="Listar Musicas" />
-    <item
-        android:id="@+id/it_lgeneros"
-        android:title="Listar Gêneros" />
+    <!-- Grupo de Itens Funcionais -->
+    <group
+        android:id="@+id/main_items"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/it_nmusica"
+            android:title="Nova Música"
+            android:icon="@drawable/ic_add_music" />
+
+        <item
+            android:id="@+id/it_lmusicas"
+            android:title="Listar Musicas"
+            android:icon="@drawable/ic_musica" />
+
+        <item
+            android:id="@+id/it_lgeneros"
+            android:title="Listar Gêneros"
+            android:icon="@drawable/ic_list_genres" />
+    </group>
+
     <item
         android:id="@+id/it_fechar"
-        android:title="Fechar App" />
+        android:title="Fechar App"
+        android:icon="@drawable/ic_close" />
 </menu>
