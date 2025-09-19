@@ -10,10 +10,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.example.alodrawermenu.db.bean.Musica;
 import com.example.alodrawermenu.db.dal.MusicaDAL;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -63,18 +65,31 @@ public class MusicasFragment extends Fragment {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_musicas, container, false);
         lvMusicas=view.findViewById(R.id.lvMusicas);
+        // O restante do seu código antes do Listener...
+
         lvMusicas.setOnItemLongClickListener((adapterView, view1, i, l) -> {
-            MusicaDAL dal =new MusicaDAL(view.getContext());
-            Musica musica =(Musica)adapterView.getItemAtPosition(i);
-            dal.apagar(musica.getId());
-            //atualiza o listView
-            //((ArrayAdapter)lvMusicas.getAdapter()).notifyDataSetChanged();
-            carregarMusicas(view);
+            Musica musica = (Musica) adapterView.getItemAtPosition(i);
+
+            new AlertDialog.Builder(adapterView.getContext())
+                    .setTitle("Confirmar Exclusão")
+                    .setMessage("Tem certeza que deseja excluir a música \"" + musica.getTitulo() + "\"?")
+                    .setPositiveButton("Sim", (dialog, which) -> {
+                        MusicaDAL dal = new MusicaDAL(adapterView.getContext());
+                        dal.apagar(musica.getId());
+
+                        // Use a view principal do Fragment (a "view" que você inflou) para o Snackbar
+                        Snackbar.make(view, "Música excluída com sucesso!", Snackbar.LENGTH_SHORT).show();
+
+                        carregarMusicas(view);
+                    })
+                    .setNegativeButton("Não", null)
+                    .show();
             return true;
         });
         lvMusicas.setOnItemClickListener((adapterView, view1, i, l) -> {
             Musica musica =(Musica)adapterView.getItemAtPosition(i);
             mainActivity.alterarMusica(musica);
+
         });
         carregarMusicas(view);
         return view;
