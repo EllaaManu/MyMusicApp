@@ -50,15 +50,12 @@ public class GeneroDAL
         int count =0;
         if (cursor.moveToFirst()) {
             count = cursor.getInt(0);
+        }
 
+        if (count > 0){
             Toast.makeText(context, "Não é possível apagar. O gênero está sendo usado por " + count + " música(s).", Toast.LENGTH_LONG).show();
-            return false;
-        }
+            return false; }
         cursor.close();
-
-        if (count>0) {
-
-        }
         return con.apagar(TABLE,"gen_id="+chave)>0;
     }
 
