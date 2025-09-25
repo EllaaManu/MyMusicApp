@@ -1,0 +1,75 @@
+Funcionalidades Básicas e Avançadas
+Aqui estão algumas ideias de recursos que você poderia implementar, explorando diferentes aspectos do SQL:
+
+1. Consulta com Filtros Múltiplos
+Sua função get(String filtro) já permite filtrar, mas você poderia criar consultas mais complexas, como:
+
+Buscar músicas por ano e gênero: SELECT * FROM musica WHERE mus_ano > 2000 AND mus_genero = 5
+
+Listar músicas de um artista específico que não sejam de um determinado gênero: SELECT * FROM musica WHERE mus_interprete = 'Nome do Artista' AND mus_genero != 3
+
+2. Junção de Tabelas (JOIN)
+Esta é uma funcionalidade fundamental do SQL que o seu código ainda não usa. JOIN permite combinar dados de duas ou mais tabelas com base em uma coluna relacionada (neste caso, a mus_genero da tabela musica e a gen_id da tabela genero).
+
+Exemplo de uso:
+
+Listar todas as músicas, mostrando o nome do gênero em vez do ID:
+
+SQL
+
+SELECT m.mus_titulo, m.mus_interprete, g.gen_nome
+FROM musica AS m
+JOIN genero AS g ON m.mus_genero = g.gen_id;
+Contar quantas músicas cada gênero possui:
+
+SQL
+
+SELECT g.gen_nome, COUNT(m.mus_id) AS total_musicas
+FROM genero AS g
+LEFT JOIN musica AS m ON g.gen_id = m.mus_genero
+GROUP BY g.gen_nome;
+A função COUNT() é uma função agregada, e o GROUP BY agrupa os resultados por gênero.
+
+3. Funções Agregadas (GROUP BY)
+Além do COUNT(), outras funções agregadas são muito úteis para obter resumos de dados.
+
+Calcular a duração total das músicas por gênero:
+
+SQL
+
+SELECT g.gen_nome, SUM(m.mus_duracao) AS duracao_total
+FROM musica AS m
+JOIN genero AS g ON m.mus_genero = g.gen_id
+GROUP BY g.gen_nome;
+Encontrar a média de duração das músicas por intérprete:
+
+SQL
+
+SELECT mus_interprete, AVG(mus_duracao) AS media_duracao
+FROM musica
+GROUP BY mus_interprete;
+4. Ordenação e Limitação de Resultados
+Você pode adicionar parâmetros aos seus métodos get para ordenar e limitar os resultados.
+
+ORDER BY (Ordenação): Permite ordenar os resultados por uma ou mais colunas.
+
+ORDER BY mus_titulo ASC (ordenar por título em ordem alfabética).
+
+ORDER BY mus_ano DESC, mus_titulo ASC (ordenar por ano em ordem decrescente e, em caso de empate, por título em ordem alfabética).
+
+LIMIT (Limitação): Restringe o número de linhas retornadas.
+
+SELECT * FROM musica ORDER BY mus_ano DESC LIMIT 10 (buscar as 10 músicas mais recentes).
+
+Novos métodos para a classe MusicaDAL
+Com essas ideias, você poderia criar novos métodos em sua classe MusicaDAL para suportar essas consultas. Por exemplo:
+
+public ArrayList<MusicaComGenero> getMúsicasComNomeDoGenero();
+
+Esta função retornaria um novo tipo de objeto, MusicaComGenero, que incluiria o nome do gênero, obtido com um JOIN.
+
+public Map<String, Integer> contarMúsicasPorGênero();
+
+Este método usaria GROUP BY e COUNT() para retornar um mapa com o nome do gênero e a quantidade de músicas.
+
+Essas funcionalidades o ajudariam a construir um aplicativo mais rico, permitindo análises e exibições de dados mais complexas, tudo com o poder do SQL.

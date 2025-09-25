@@ -14,10 +14,12 @@ import java.util.ArrayList;
 
 public class GeneroDAL
 {   private Conexao con;
+    private Context context;
     private final String TABLE="genero";
 
     public GeneroDAL(Context context) {
         con = new Conexao(context);
+        this.context = context;
         try {
             con.conectar();
         }
@@ -43,6 +45,20 @@ public class GeneroDAL
     }
     public boolean apagar(long chave)
     {
+        String sql = "SELECT COUNT(*) FROM musica WHERE mus_genero = "+chave;
+        Cursor cursor = con.consultar(sql);
+        int count =0;
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);
+
+            Toast.makeText(context, "Não é possível apagar. O gênero está sendo usado por " + count + " música(s).", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        cursor.close();
+
+        if (count>0) {
+
+        }
         return con.apagar(TABLE,"gen_id="+chave)>0;
     }
 
